@@ -1,22 +1,22 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from server.models import db
-from server.routes import register_routes
+from server.config import Config
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///school.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+def create_app():
+    app = Flask(__name__)
 
-CORS(app)
-db.init_app(app)
-migrate = Migrate(app, db)
-register_routes(app)
+    app.config.from_object(Config)
 
-@app.route('/')
-def index():
-    return {"message": "School Management System API is running"}
+    db.init_app(app)
+    Migrate(app, db)
+    CORS(app)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    @app.route('/')
+    def index():
+        return {'message': 'School Management System Backend'}
+
+    return app
+
+app = create_app()
