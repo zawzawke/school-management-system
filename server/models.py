@@ -4,9 +4,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-# ------------------------------------
 # School
-# ------------------------------------
 class School(db.Model, SerializerMixin):
     __tablename__ = 'schools'
 
@@ -38,10 +36,7 @@ class Student(db.Model, SerializerMixin):
     enrollments = db.relationship('Enrollment', backref='student', lazy=True)
     payments = db.relationship('FeePayment', backref='student', lazy=True)
 
-
-# ------------------------------------
 # Teacher
-# ------------------------------------
 class Teacher(db.Model, SerializerMixin):
     __tablename__ = 'teachers'
 
