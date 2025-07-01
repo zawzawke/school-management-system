@@ -35,3 +35,6 @@ def create_student():
 def get_students():
     students = Student.query.all()
     return jsonify([student.to_dict() for student in students])
+def fee_status(student_id):
+    student = Student.query.get_or_404(student_id)
+    return student.get_fee_status()

@@ -14,6 +14,7 @@ from server.enrollment_routes import enrollment_bp
 from server.fee_structure_routes import fee_structure_bp
 from server.fee_payment_routes import fee_payment_bp
 from server.teacher_assignment_routes import teacher_assignment_bp
+from server.fee_routes import fee_bp
 
 def create_app():
     app = Flask(__name__)
@@ -30,6 +31,7 @@ def create_app():
     app.register_blueprint(enrollment_bp)
     app.register_blueprint(fee_structure_bp)
     app.register_blueprint(fee_payment_bp)
+    app.register_blueprint(fee_bp)
     app.register_blueprint(teacher_assignment_bp)
 
     @app.route('/')
