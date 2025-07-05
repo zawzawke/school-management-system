@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager  
 
 from server.models import db
 from server.config import Config
@@ -15,15 +16,19 @@ from server.fee_structure_routes import fee_structure_bp
 from server.fee_payment_routes import fee_payment_bp
 from server.teacher_assignment_routes import teacher_assignment_bp
 from server.fee_routes import fee_bp
+from server.auth_routes import auth_bp 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
     db.init_app(app)
+    jwt = JWTManager(app)  
     Migrate(app, db)
     CORS(app)
 
+    # Register blueprints
+    app.register_blueprint(auth_bp)
     app.register_blueprint(school_bp)
     app.register_blueprint(student_bp)
     app.register_blueprint(teacher_bp)
